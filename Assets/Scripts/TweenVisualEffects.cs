@@ -70,7 +70,7 @@ public class TweenVisualEffects : MonoBehaviour
         bounceShakeSequence.Append(objTransform.DORotate(new Vector3(0, 0, 0), _bounceShakeDuration, RotateMode.Fast));
     }
 
-    public Sequence CreateSequance()
+    private Sequence CreateSequance()
     {
         Sequence bounceSequence = DOTween.Sequence();
         _Sequances.Add(bounceSequence);

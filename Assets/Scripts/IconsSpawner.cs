@@ -10,8 +10,15 @@ public class IconsSpawner : MonoBehaviour
     [SerializeField]
     private GridContent _gridContent;
 
+    private bool _firstAppearance;
+
     private List<IconData> _iconsToSpawn = new List<IconData>();
     //private List<IconButton> _spawnedIcons = new List<IconButton>();
+
+    private void Awake() 
+    {
+        _firstAppearance = true;
+    }
 
     public void InitGridSpawner(IconData[] iconBundleData)
     {
@@ -37,6 +44,14 @@ public class IconsSpawner : MonoBehaviour
             iconButton.transform.localPosition = position;
         }
 
+        if (_firstAppearance)
+        {
+            foreach (IconButton iconButton in spawnedIcons)
+            {
+                iconButton.FirstAppearance();
+            }
+            _firstAppearance = false;
+        }
         _gridContent.SetGridContent(spawnedIcons);
     }
 

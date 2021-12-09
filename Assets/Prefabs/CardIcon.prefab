@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3058201474893459719}
   - component: {fileID: 2244109633166081536}
-  - component: {fileID: 5902257151380677885}
   - component: {fileID: 1974470430391472287}
+  - component: {fileID: 5902257151380677885}
+  - component: {fileID: -670823194366558054}
+  - component: {fileID: 4972244028869309797}
   m_Layer: 0
   m_Name: CardIcon
   m_TagString: Untagged
@@ -84,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5902257151380677885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6215942135421601785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f55e46c62dbcd46418ed77f3611e8abd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 1774115875820192939}
-  _iconTransform: {fileID: 6455375802572307035}
 --- !u!58 &1974470430391472287
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -114,6 +102,101 @@ CircleCollider2D:
   m_Offset: {x: -0.0028641224, y: 0}
   serializedVersion: 2
   m_Radius: 0.9971359
+--- !u!114 &5902257151380677885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215942135421601785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55e46c62dbcd46418ed77f3611e8abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 1774115875820192939}
+  OnCorrectClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -670823194366558054}
+        m_MethodName: BounceScale
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6455375802572307035}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4972244028869309797}
+        m_MethodName: CreateParticle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnWrongClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -670823194366558054}
+        m_MethodName: BounceShake
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6455375802572307035}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnFirstAppearance:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -670823194366558054}
+        m_MethodName: BounceIn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3058201474893459719}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-670823194366558054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215942135421601785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5822b44bf713c2e49a2a5d92a4c9e1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bounceShakeDuration: 0.15
+  _bounceInDuration: 0.2
+  _bounceScaleDuration: 0.2
+--- !u!114 &4972244028869309797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215942135421601785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb9e8f77022fd141b0ac64804ff8455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystemPrefab: {fileID: 5161585489429322768, guid: 3ca82bcb943847146bf1b19c7e68ae80,
+    type: 3}
 --- !u!1 &8964686190496608660
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +208,7 @@ GameObject:
   - component: {fileID: 6455375802572307035}
   - component: {fileID: 1774115875820192939}
   m_Layer: 0
-  m_Name: Number_1
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,7 +266,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 1422184923334757970, guid: b3faa7cd0b1d3e94c833c05033c48339,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

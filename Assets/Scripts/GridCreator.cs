@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridCreator : MonoBehaviour
-{   
+{
     [SerializeField]
     private AllLevelsData _levelsData;
 
@@ -13,9 +13,6 @@ public class GridCreator : MonoBehaviour
     private IconsSpawner _iconsSpawner;
 
     [SerializeField]
-    private GridContent _gridContent; 
-
-    [SerializeField]
     private float _gridInterval;
 
     private int _currentLevel;
@@ -23,20 +20,25 @@ public class GridCreator : MonoBehaviour
     private void Start()
     {
         _currentLevel = 0;
-        InitialiseGrid(_levelsData.LevelData[_currentLevel]);
-        _gridContent.LevelComplete += NextLevel;
+
+        StartCoroutine(PreInit());
+        //InitialiseGrid(_levelsData.LevelData[_currentLevel]);
+
     }
 
-    private void OnDestroy()
+    private IEnumerator PreInit() 
     {
-        _gridContent.LevelComplete -= NextLevel;
+        yield return new WaitForSeconds(1f);
+        yield return new WaitForEndOfFrame();
+        InitialiseGrid(_levelsData.LevelData[_currentLevel]);
     }
-    private void NextLevel()
+
+    public void NextLevel()
     {
         _currentLevel++;
         if (_currentLevel < _levelsData.LevelData.Length)
         {
-            InitialiseGrid(_levelsData.LevelData[_currentLevel]);
+            StartCoroutine(PreInit());
         }
         else
         {

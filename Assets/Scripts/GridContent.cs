@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GridContent : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class GridContent : MonoBehaviour
     private List<string> _alreadyFoundIconsId = new List<string>();
 
     [SerializeField]
-    private TweenVisualEffects _visualEffects;
+    private UnityEvent OnCorrectAnswer;
+    [SerializeField]
+    private UnityEvent OnWrongAnswer;
 
     private string _idToFind;
 
@@ -32,7 +35,6 @@ public class GridContent : MonoBehaviour
 
     private void CleanGrindContent()
     {
-        _visualEffects.CleanTweens();
         foreach (IconButton iconButton in _iconsOnGrid)
         {
             Destroy(iconButton.gameObject);
@@ -76,12 +78,14 @@ public class GridContent : MonoBehaviour
     {
         if (Compare(iconButton.IconId))
         {
-            _visualEffects.BounceScale(iconButton.iconTransform);
+            iconButton.WrightClick();
+            OnCorrectAnswer.Invoke();
             LevelComplete();
         }
         else
-        {
-            _visualEffects.BounceShake(iconButton.iconTransform);
+        {           
+            iconButton.WrongClick();
+            OnWrongAnswer.Invoke();
         }
     }
 }
