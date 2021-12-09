@@ -11,40 +11,64 @@ public class GridContent : MonoBehaviour
 
     [SerializeField]
     private UnityEvent OnCorrectAnswer;
+
     [SerializeField]
-    private UnityEvent OnWrongAnswer;
+    private DisplayUI _displayUI;
 
     private string _idToFind;
+    private bool _firstAppearance = true; 
 
-    public event Action LevelComplete = delegate { };
 
     public void SetGridContent(List<IconButton> _spawnedIcons)
     {
-        CleanGrindContent();
+        ClearGridContent();
         _iconsOnGrid = _spawnedIcons;
 
         foreach (IconButton iconButton in _iconsOnGrid)
         {
             iconButton.ButtonPressed += IconButtonPressed;
+            if (_firstAppearance)
+            {
+                iconButton.FirstAppearance();
+            }
         }
 
+        _firstAppearance = false;
         SelectIdToFind();
+        _displayUI.InitTaskText();
+        _displayUI.SetTask(_idToFind);
     }
 
-
-
-    private void CleanGrindContent()
+    private void ClearGridContent()
     {
         foreach (IconButton iconButton in _iconsOnGrid)
         {
+
             Destroy(iconButton.gameObject);
         }
         _iconsOnGrid.Clear();
     }
 
+    public void ResetGrindContent()
+    {
+        ClearAlreadyFoundIcons();
+        ClearGridContent();
+        _firstAppearance = true;
+    }
+
+    private void ClearAlreadyFoundIcons()
+    {
+        _alreadyFoundIconsId.Clear();
+    }
+
     private void SelectIdToFind()
     {
-        List<IconButton> availableIcons = _iconsOnGrid;
+        List<IconButton> availableIcons = new List<IconButton>();
+
+        foreach (IconButton iconButton in _iconsOnGrid)
+        {
+            availableIcons.Add(iconButton);
+        }
 
         foreach (string foundId in _alreadyFoundIconsId)
         {
@@ -52,8 +76,7 @@ public class GridContent : MonoBehaviour
         }
 
         _idToFind = availableIcons[UnityEngine.Random.Range(0, availableIcons.Count)].IconId;
-
-        Debug.Log(_idToFind);
+        _alreadyFoundIconsId.Add(_idToFind);
     }
 
     private void OnDestroy()
@@ -64,6 +87,13 @@ public class GridContent : MonoBehaviour
         }
     }
 
+    public void SetButtonsActivity(bool active)
+    {
+        foreach (IconButton iconButton in _iconsOnGrid)
+        {
+            iconButton.IsActive(active);
+        }
+    }
 
     private bool Compare(string iconID)
     {
@@ -78,14 +108,12 @@ public class GridContent : MonoBehaviour
     {
         if (Compare(iconButton.IconId))
         {
-            iconButton.WrightClick();
+            iconButton.CorrectClick();
             OnCorrectAnswer.Invoke();
-            LevelComplete();
         }
         else
-        {           
+        {
             iconButton.WrongClick();
-            OnWrongAnswer.Invoke();
         }
     }
 }

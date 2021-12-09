@@ -22,7 +22,9 @@ public class IconButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private UnityEvent OnWrongClick;
     [SerializeField]
-    private UnityEvent OnFirstAppearance; 
+    private UnityEvent OnFirstAppearance;
+
+    private bool isActive = true;
 
     public void SetIcon(IconData iconData)
     {
@@ -30,13 +32,12 @@ public class IconButton : MonoBehaviour, IPointerClickHandler
         _spriteRenderer.sprite = iconData.Sprite;
     }
 
-
     public void FirstAppearance()
     {
         OnFirstAppearance.Invoke();
     }
 
-    public void WrightClick()
+    public void CorrectClick()
     {
         OnCorrectClick.Invoke();
     }
@@ -48,7 +49,15 @@ public class IconButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ButtonPressed(this);
+        if (isActive)
+        {
+            ButtonPressed(this);
+        }
+    }
+
+    public void IsActive(bool active)
+    {
+        isActive = active;
     }
 
 }
