@@ -8,31 +8,28 @@ public class LevelsCounter : MonoBehaviour
 {
     [SerializeField]
     private GridCreator _gridCreator;
-
     [SerializeField]
     private AllLevelsData _levelsData;
-
-    [SerializeField]
+    [SerializeField, Range(0f, 5f)]
     private float _levelStartDelay;
-
     [SerializeField]
-    private UnityEvent OnGameWin; 
+    private UnityEvent _onGameWin;
 
     private int _currentLevel = 0;
 
-    void Start()
+    private void Start()
     {
         GameStart();
     }
 
     public void GameStart()
     {
-        StartCoroutine(PreInit());
+        StartCoroutine(StartLevelWithDelay());
     }
 
-    private IEnumerator PreInit()
+    private IEnumerator StartLevelWithDelay(float delay = 0)
     {
-        yield return new WaitForSeconds(_levelStartDelay);
+        yield return new WaitForSeconds(delay);
         yield return new WaitForEndOfFrame();
         _gridCreator.InitialiseGrid(_levelsData.LevelData[_currentLevel]);
     }
@@ -42,12 +39,12 @@ public class LevelsCounter : MonoBehaviour
         _currentLevel++;
         if (_currentLevel < _levelsData.LevelData.Length)
         {
-            StartCoroutine(PreInit());
+            StartCoroutine(StartLevelWithDelay(_levelStartDelay));
         }
         else
         {
             _currentLevel = 0;
-            OnGameWin.Invoke();
+            _onGameWin.Invoke();
         }
     }
 

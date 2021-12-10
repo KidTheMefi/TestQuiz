@@ -19,17 +19,15 @@ public class VisualEffectImageTween : MonoBehaviour
         _objImage = GetComponent<Image>();
     }
 
-
     public void FadeOut()
     {
         Fade(0, _fadeOutDuration);
     }
 
-    public void FadeOut(UnityEvent onComplete = null)
+    public void FadeOut(UnityEvent onComplete)
     {
         Fade(0, _fadeOutDuration, onComplete);
     }
-
 
     public void FadeIn()
     {
@@ -37,7 +35,7 @@ public class VisualEffectImageTween : MonoBehaviour
         Fade(1, _fadeOutDuration);
     }
 
-    public void FadeIn(UnityEvent onComplete = null)
+    public void FadeIn(UnityEvent onComplete)
     {
         _objImage.DOFade(0, 0);
         Fade(1, _fadeOutDuration, onComplete);

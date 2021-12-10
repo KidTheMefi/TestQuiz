@@ -10,7 +10,7 @@ public class GridContent : MonoBehaviour
     private List<string> _alreadyFoundIconsId = new List<string>();
 
     [SerializeField]
-    private UnityEvent OnCorrectAnswer;
+    private UnityEvent _onCorrectAnswer;
 
     [SerializeField]
     private DisplayUI _displayUI;
@@ -32,7 +32,7 @@ public class GridContent : MonoBehaviour
                 iconButton.FirstAppearance();
             }
         }
-
+        
         _firstAppearance = false;
         SelectIdToFind();
         _displayUI.InitTaskText();
@@ -109,7 +109,7 @@ public class GridContent : MonoBehaviour
         if (Compare(iconButton.IconId))
         {
             iconButton.CorrectClick();
-            OnCorrectAnswer.Invoke();
+            _onCorrectAnswer.Invoke();
         }
         else
         {

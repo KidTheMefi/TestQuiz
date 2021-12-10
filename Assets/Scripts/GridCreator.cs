@@ -32,7 +32,6 @@ public class GridCreator : MonoBehaviour
     private void SpawnIcons()
     {
         _iconsSpawner.SpawnIcons(_positionsInGrid);
-
     }
 
     private void UpdateGridPosition(int column, int row)

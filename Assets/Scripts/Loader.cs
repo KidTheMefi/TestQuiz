@@ -5,21 +5,31 @@ using UnityEngine;
 public class Loader : MonoBehaviour
 {
     [SerializeField]
-    VisualEffectImageTween _visualEffectImageTween;
+    private VisualEffectImageTween _loadingPanelPrefab;
+
+    private VisualEffectImageTween _visualEffectImageTween;
 
     [SerializeField]
-    private UnityEvent OnLoadStart;
+    private UnityEvent _onLoadStart;
     [SerializeField]
-    private UnityEvent OnLoadEnd; 
-     
-    private void OnEnable() 
+    private UnityEvent _onLoadEnd;
+
+    public void StartLoading()
     {
-        _visualEffectImageTween.FadeIn(OnLoadStart);
+
+        _onLoadStart.AddListener(LoadingDone);
+        _visualEffectImageTween = Instantiate(_loadingPanelPrefab, gameObject.transform);
+        _visualEffectImageTween.FadeIn(_onLoadStart);
     }
 
-    public void LoadingDone()
+    private void LoadingDone()
     {
-        _visualEffectImageTween.FadeOut(OnLoadEnd); 
+        _onLoadEnd.AddListener(DeleteLoadingPanel);
+        _visualEffectImageTween.FadeOut(_onLoadEnd);
     }
 
+    private void DeleteLoadingPanel()
+    {
+        Destroy(_visualEffectImageTween.gameObject);
+    }
 }

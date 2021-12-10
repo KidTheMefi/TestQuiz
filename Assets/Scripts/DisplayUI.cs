@@ -7,14 +7,14 @@ public class DisplayUI : MonoBehaviour
 {
 
     [SerializeField]
-    private UnityEvent OnGameWin;
+    private UnityEvent _onGameWin;
 
     [SerializeField]
     private Text _taskTextPrefab;
     [SerializeField]
     private RectTransform _canvas;
     [SerializeField]
-    private VisualEffectsTextTween visualEffectsTextTween;
+    private VisualEffectsTextTween _visualEffectsTextTween;
 
     private Text _taskText;
 
@@ -23,7 +23,7 @@ public class DisplayUI : MonoBehaviour
         if (_taskText == null)
         {
             _taskText = Instantiate(_taskTextPrefab, _canvas.transform);
-            visualEffectsTextTween.FadeIn(_taskText);
+            _visualEffectsTextTween.FadeIn(_taskText);
         }
     }
 
@@ -34,7 +34,7 @@ public class DisplayUI : MonoBehaviour
 
     public void GameWin()
     {
-        OnGameWin.Invoke();
+        _onGameWin.Invoke();
     }
 
     public void DeleteText()

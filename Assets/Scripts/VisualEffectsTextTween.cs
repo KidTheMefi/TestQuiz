@@ -13,7 +13,6 @@ public class VisualEffectsTextTween : MonoBehaviour
 
     private Tween _currentTween;
 
-
     public void FadeOut(Text objText)
     {
         Fade(0, _fadeOutDuration, objText);

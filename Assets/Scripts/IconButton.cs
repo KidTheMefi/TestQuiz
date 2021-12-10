@@ -10,21 +10,17 @@ public class IconButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
 
-    /*[SerializeField]
-    private Transform _iconTransform;*/
-
-    public string IconId { get; private set; }
     public SpriteRenderer SpriteRender => _spriteRenderer;
-    //public Transform iconTransform => _iconTransform;
+    public string IconId { get; private set; }
+   
+    [SerializeField]
+    private UnityEvent _onCorrectClick;
+    [SerializeField]
+    private UnityEvent _onWrongClick;
+    [SerializeField]
+    private UnityEvent _onFirstAppearance;
 
-    [SerializeField]
-    private UnityEvent OnCorrectClick;
-    [SerializeField]
-    private UnityEvent OnWrongClick;
-    [SerializeField]
-    private UnityEvent OnFirstAppearance;
-
-    private bool isActive = true;
+    private bool _isActive = true;
 
     public void SetIcon(IconData iconData)
     {
@@ -34,22 +30,22 @@ public class IconButton : MonoBehaviour, IPointerClickHandler
 
     public void FirstAppearance()
     {
-        OnFirstAppearance.Invoke();
+        _onFirstAppearance.Invoke();
     }
 
     public void CorrectClick()
     {
-        OnCorrectClick.Invoke();
+        _onCorrectClick.Invoke();
     }
 
     public void WrongClick() 
     {
-        OnWrongClick.Invoke();
+        _onWrongClick.Invoke();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isActive)
+        if (_isActive)
         {
             ButtonPressed(this);
         }
@@ -57,7 +53,7 @@ public class IconButton : MonoBehaviour, IPointerClickHandler
 
     public void IsActive(bool active)
     {
-        isActive = active;
+        _isActive = active;
     }
 
 }
