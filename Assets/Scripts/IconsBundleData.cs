@@ -8,6 +8,5 @@ public class IconBundleData : ScriptableObject
 {
     [SerializeField]
     private IconData[] _iconData;
-
     public IconData[] IconData => _iconData;
 }

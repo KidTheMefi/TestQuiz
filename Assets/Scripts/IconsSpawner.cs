@@ -6,14 +6,12 @@ public class IconsSpawner : MonoBehaviour
 {
     [SerializeField]
     private IconFabric _iconFabric;
-
     [SerializeField]
     private GridContent _gridContent;
 
     private List<IconData> _iconsToSpawn = new List<IconData>();
-    //private List<IconButton> _spawnedIcons = new List<IconButton>();
 
-    public void InitGridSpawner(IconData[] iconBundleData)
+    public void InitIconSpawner(IconData[] iconBundleData)
     {
         _iconsToSpawn.Clear();
 
@@ -36,7 +34,6 @@ public class IconsSpawner : MonoBehaviour
             spawnedIcons.Add(iconButton);
             iconButton.transform.localPosition = position;
         }
-
         _gridContent.SetGridContent(spawnedIcons);
     }
 

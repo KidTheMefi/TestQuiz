@@ -3,51 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridCreator : MonoBehaviour
-{   
-    [SerializeField]
-    private AllLevelsData _levelsData;
-
+{
     private List<Vector3> _positionsInGrid = new List<Vector3>();
 
     [SerializeField]
     private IconsSpawner _iconsSpawner;
 
     [SerializeField]
-    private GridContent _gridContent; 
-
-    [SerializeField]
     private float _gridInterval;
 
-    private int _currentLevel;
-
-    private void Start()
-    {
-        _currentLevel = 0;
-        InitialiseGrid(_levelsData.LevelData[_currentLevel]);
-        _gridContent.LevelComplete += NextLevel;
-    }
-
-    private void OnDestroy()
-    {
-        _gridContent.LevelComplete -= NextLevel;
-    }
-    private void NextLevel()
-    {
-        _currentLevel++;
-        if (_currentLevel < _levelsData.LevelData.Length)
-        {
-            InitialiseGrid(_levelsData.LevelData[_currentLevel]);
-        }
-        else
-        {
-            EndGame();
-        }
-    }
-
-    private void InitialiseGrid(LevelData levelData)
+    public void InitialiseGrid(LevelData levelData)
     {
         _positionsInGrid.Clear();
-        _iconsSpawner.InitGridSpawner(levelData.IconBundle[Random.Range(0, levelData.IconBundle.Length)].IconData);
+        _iconsSpawner.InitIconSpawner(levelData.IconBundle[Random.Range(0, levelData.IconBundle.Length)].IconData);
         UpdateGridPosition(levelData.NumberOfColums, levelData.NumberOfRows);
 
         for (int x = 0; x < levelData.NumberOfColums; x++)
@@ -64,7 +32,6 @@ public class GridCreator : MonoBehaviour
     private void SpawnIcons()
     {
         _iconsSpawner.SpawnIcons(_positionsInGrid);
-
     }
 
     private void UpdateGridPosition(int column, int row)
@@ -84,8 +51,4 @@ public class GridCreator : MonoBehaviour
         gameObject.transform.position = new Vector3(newPositionX, newPositionY);
     }
 
-    private void EndGame()
-    {
-
-    }
 }
